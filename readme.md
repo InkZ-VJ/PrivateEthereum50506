@@ -11,6 +11,7 @@ This is list of requirement setup local private ethereum network at Faculty of E
 |[NPX](#node-package-executenpx)|10.2.2|
 |[Solidity(solc)](#solidity-command-line-compilersolc)|0.8.20|
 |[Go-Ethereum(Geth)](#go-ethereumgeth)|1.11.6|
+|Python|3.10.6|
 ---
 > ## Ubuntu 
 Ubuntu are Linux operating systems that reccommend for programming  
@@ -42,7 +43,7 @@ Output:
 20.2.0
 ```
 ---
-> ## Node Package Manager(NPM)
+> ### Node Package Manager(NPM)
 NPM is tools for helpping pull NodeJS moduls
 * Open a terminal in WSL Ubuntu.
 * Run this command for install `npm`
@@ -58,7 +59,7 @@ Output:
 9.6.7
 ```
 ---
-> ## Node Package Execute(NPX)
+> ### Node Package Execute(NPX)
 NPX is tools for helpping run node modules with out install dependency. It suit for run module command that run once 
 * Open a terminal in WSL Ubuntu.
 * Run this command for install `npx`
@@ -125,6 +126,12 @@ geth --version
 Output:
 geth version 1.11.6-stable-ea9e62ca
 ```
+---
+> ## Python
+Python is used for interaction with Smart contract in Private Blockchain
+* Open a terminal in WSL Ubuntu.
+
+
 ---
 > ## Lisense
 By Vatcharapong Jittiprasert   
