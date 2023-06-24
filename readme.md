@@ -43,7 +43,7 @@ Output:
 20.2.0
 ```
 ---
-> ### Node Package Manager(NPM)
+### Node Package Manager(NPM)
 NPM is tools for helpping pull NodeJS moduls
 * Open a terminal in WSL Ubuntu.
 * Run this command for install `npm`
@@ -59,7 +59,7 @@ Output:
 9.6.7
 ```
 ---
-> ### Node Package Execute(NPX)
+### Node Package Execute(NPX)
 NPX is tools for helpping run node modules with out install dependency. It suit for run module command that run once 
 * Open a terminal in WSL Ubuntu.
 * Run this command for install `npx`
