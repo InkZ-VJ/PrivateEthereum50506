@@ -2,8 +2,8 @@
 In this part we will lead you for setup Node for connect to our local privte network 50506 in `wsl Ubuntu`
 > ## Create foilder
 ```
-mkdir <fileName>
-cd <fileName>/
+mkdir mGrids
+cd mGrids/
 ```
 * `mkdir <foilderName>` : make directory
 * `cd <pathFile>` : change directory
