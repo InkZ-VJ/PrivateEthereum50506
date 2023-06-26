@@ -117,9 +117,34 @@ solv --version
 ```
 ---
 > ## Python
-Python is used for interaction with Smart contract in Private Blockchain
+Python is used for interaction with Smart contract in Private Blockchain (Python3 are pre-install)
 * Open a terminal in WSL Ubuntu.
-
+* Check you Python current version
+```
+python3 -V
+```
+```
+Output:
+Python 3.10.6 
+```
+* install python package dowloads tools
+```
+sudo apt install -y python3-pip
+```
+> ### 1. web3
+web3 is used for interaction with smart contract in blockchain network
+* Open a terminal in WSL Ubuntu.
+* Runthis command for install `web3` package
+```
+sudo pip install web3
+```
+> ### 2. json
+json is used for 
+* Open a terminal in WSL Ubuntu.
+* Runthis command for install `web3` package
+```
+sudo pip install json
+```
 
 ---
 > ## Lisense

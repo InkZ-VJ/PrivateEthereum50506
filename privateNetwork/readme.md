@@ -70,6 +70,22 @@ geth --datadir data \
     --unlock ${ADDRESS} --allow-insecure-unlock --password ./data/keystore/accountPassword \
     --port 30300 --authrpc.port 8560
 ```
+> ## Attatch Node
+Attatch node for observe your current Node status
+* Open new terminal tab in WSL Ubuntu. 
+* Run this command to attach to Node
+```
+cd mGrids/Node/
+geth attach data/geth.ipc
+```
+* Select some of this command to log Node status
+1. `net.listening` : show node connecting status
+2. `net.peerCount` : for check sum of peer that yours node currently connected
+3. `admin.peers` : show peers info that yours node currently connected
+4. `admin.nodeInfo` : Show Node infomation
+
+
+
 
 
 
