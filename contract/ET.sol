@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8;
+pragma solidity ^0.7;
 
 contract EnergyTrading {
     mapping (address => uint256) public balanceOf;
@@ -11,7 +11,6 @@ contract EnergyTrading {
         address customer;
         address ownerE;
         uint value;
-        bool status_payment;
     } 
 
     constructor(uint256 maxToken) {
@@ -30,13 +29,13 @@ contract EnergyTrading {
         status[_customer] = false;
     }
  
-    function BuyToken(address _to, uint256 _value) public {
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
+    function BuyToken(uint256 _value) public {
+        balanceOf[serviceProvider] -= _value;
+        balanceOf[msg.sender] += _value;
     }
     function payBills(address _customerAddress) public {
         require (msg.sender == _customerAddress);
-        require (balanceOf[_customerAddress] >= yourCost[_customerAddress]); // Check if the sender has enough
+        require (balanceOf[_customerAddress] >= yourCost[_customerAddress]);
         balanceOf[_customerAddress] -= yourCost[_customerAddress];
         balanceOf[serviceProvider] += yourCost[_customerAddress];
         status[_customerAddress] = true;
@@ -44,7 +43,6 @@ contract EnergyTrading {
         point.customer = _customerAddress;
         point.ownerE = serviceProvider;
         point.value = yourCost[_customerAddress];
-        point.status_payment = true;
         yourCost[_customerAddress] = 0;
     }
 }
