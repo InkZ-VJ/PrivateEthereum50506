@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-from gpiozero import LED
 import web3
 import schedule
 import time
