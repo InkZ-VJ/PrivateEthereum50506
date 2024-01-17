@@ -1,1 +1,3 @@
 solc --combined-json abi ET.sol | jq '.contracts["ET.sol:EnergyTrading"].abi' > contractABI.json
+
+sloc --gas ./ET.sol
