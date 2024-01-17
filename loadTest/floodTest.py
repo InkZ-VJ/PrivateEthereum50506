@@ -5,7 +5,7 @@ import concurrent.futures
 # Connect to your Ethereum node
 w3 = Web3(Web3.HTTPProvider('http://localhost:8545'))
 
-private_key = '0x7f81a5f87ce01049b8b63f520179fc3ed9ebd9def0cbe4aca334eec5e1c573e6'
+private_key = <YOUR_PRIVATE_KEY>
 account = w3.eth.account.from_key(private_key)
 
 # Load the contract ABI and address
