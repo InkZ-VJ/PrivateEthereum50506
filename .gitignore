@@ -160,3 +160,9 @@ cython_debug/
 #.idea/
 s
 .sol
+address/ethereum_addresses_with_private_keys.json
+blockPeriod/block_time_plot_with_ma.png
+blockPeriod/block_time_plot.png
+loadTest/address/ethereum_addresses.txt
+loadTest/block_time_plot_with_ma.png
+loadTest/contractABI.json
