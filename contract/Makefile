@@ -10,4 +10,4 @@ task_block_number:
 
 .PHONY: deploy_node
 deploy_node:
-	npx hardhat ignition deploy ./ignition/modules/master.ts --network localhost
+	npx hardhat run --network localhost scripts/master.ts
