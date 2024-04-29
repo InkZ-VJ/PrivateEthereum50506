@@ -54,7 +54,7 @@ contract EnergyTrading is ERC20, Ownable {
     }
 
     function BuyToken() external payable onlyRegistered(msg.sender) {
-        uint256 amount = msg.value / RatePerUnit; // Calculate amount of tokens to purchase
+        uint256 amount = msg.value / (RatePerUnit * 1e9); // Calculate amount of tokens to purchase
         require(amount > 0, "Insufficient Ether sent");
 
         // Transfer tokens from serviceProvider to the customer
@@ -64,7 +64,10 @@ contract EnergyTrading is ERC20, Ownable {
         emit Transfer(serviceProvider, msg.sender, amount);
     }
 
-    function setPrice(address _customer, uint256 _cost) external onlyOwner onlyRegistered(_customer){
+    function setPrice(
+        address _customer,
+        uint256 _cost
+    ) external onlyOwner onlyRegistered(_customer) {
         require(status[_customer] == true, "Customers Dont Paided Bills");
         yourCost[_customer] = _cost;
         status[_customer] = false;
