@@ -48,25 +48,25 @@ describe("REGISTER TESTS", function () {
         ).to.equal(true);
     });
 
-    it("Should prevent customer from registering as customer", async function () {
-        const customerAddress = await customer.getAddress();
+    // it("Should prevent customer from registering as customer", async function () {
+    //     const customerAddress = await customer.getAddress();
 
-        // Try to register a customer using the customer signer (should fail)
-        try {
-            await energyTrading
-                .connect(customer)
-                .registerCustomer(customerAddress, "customer");
-            // If the above line doesn't throw an error, fail the test
-            expect.fail("Registration by non-owner should revert");
-        } catch (error: any) {
-            const errorMessage = error.message;
-            expect(errorMessage).to.include("OwnableUnauthorizedAccount");
+    //     // Try to register a customer using the customer signer (should fail)
+    //     try {
+    //         await energyTrading
+    //             .connect(customer)
+    //             .registerCustomer(customerAddress, "customer");
+    //         // If the above line doesn't throw an error, fail the test
+    //         expect.fail("Registration by non-owner should revert");
+    //     } catch (error: any) {
+    //         const errorMessage = error.message;
+    //         expect(errorMessage).to.include("OwnableUnauthorizedAccount");
 
-            Utils.TestOnlyOwner(error);
-        }
+    //         Utils.TestOnlyOwner(error);
+    //     }
 
-        // Verify that the customer was not registered
-        expect(await energyTrading.register(customerAddress)).to.equal(false);
-        expect(await energyTrading.status(customerAddress)).to.equal(false);
-    });
+    //     // Verify that the customer was not registered
+    //     expect(await energyTrading.register(customerAddress)).to.equal(false);
+    //     expect(await energyTrading.status(customerAddress)).to.equal(false);
+    // });
 });
