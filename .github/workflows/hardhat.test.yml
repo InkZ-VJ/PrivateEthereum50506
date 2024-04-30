@@ -2,17 +2,21 @@ name: unit-test
 on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dart_project
+
+  test:
     name: Hardhat unit test
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Environment
       uses: actions/setup-node@v3
-      working-directory: contract
     - name: Test
       uses: ambersun1234/hardhat-test-action@v1
-      working-directory: contract
       with:
         network: hardhat
