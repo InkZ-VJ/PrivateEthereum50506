@@ -14,9 +14,7 @@ describe("BUYTOKEN TESTS", function () {
 
     const initialSupply = 1000000;
     const ratePerUnit = 4;
-
-    // Calculate amount of tokens to purchase
-    const etherAmount = ethers.parseEther("1.0"); // 1 Ether
+    const etherAmount = ethers.parseEther("1.0");
 
     beforeEach(async function () {
         [owner, customer_regis, customer_unregis] = await ethers.getSigners();
@@ -29,14 +27,6 @@ describe("BUYTOKEN TESTS", function () {
         energyTrading = await energyTradingFactory
             .connect(owner)
             .deploy(initialSupply, ratePerUnit);
-
-        // Register customer
-        await energyTrading
-            .connect(owner)
-            .registerCustomer(
-                await customer_regis.getAddress(),
-                "customer_regis"
-            );
     });
 
     it("Should revert when unregistered customer attempts to buy tokens", async function () {
@@ -49,10 +39,47 @@ describe("BUYTOKEN TESTS", function () {
         await expect(buyTokenTx).to.be.revertedWith("Only Registered customer");
     });
 
-    it("Buytoken Success", async function () {
-        // Purchase tokens by sending Ether to buyToken function
-        await energyTrading
-            .connect(customer_regis)
-            .BuyToken({ value: etherAmount });
+    describe("REGISTERED CUSTOMER", function () {
+        // Calculate amount of tokens to purchase
+        const expectedToken = etherAmount / BigInt(ratePerUnit * 1e9);
+        console.log(`Expected Token Received: ${expectedToken}`);
+
+        this.beforeEach(async function () {
+            // Register customer
+            await energyTrading
+                .connect(owner)
+                .registerCustomer(
+                    await customer_regis.getAddress(),
+                    "customer_regis"
+                );
+        });
+
+        it("BUY TOKEN MORE THAN SUPPLY", async function () {
+            try {
+                await energyTrading
+                    .connect(customer_regis)
+                    .BuyToken({ value: etherAmount });
+            } catch (error: any) {
+                const errorMessage = error.message;
+                expect(errorMessage).to.include("ERC20InsufficientBalance");
+            }
+        });
+
+        it("Buytoken Success", async function () {
+            const goodAmount = ethers.parseUnits("100", "gwei").valueOf();
+            const beforeToken = await energyTrading.balanceOf(customer_regis);
+
+            await energyTrading
+                .connect(customer_regis)
+                .BuyToken({ value: goodAmount });
+
+            const updateToken = await energyTrading.balanceOf(customer_regis);
+            const tokenIncrease =  updateToken.valueOf() - beforeToken.valueOf();
+            const expectedToken =
+                goodAmount / ethers.toBigInt(ratePerUnit * 1e9);
+
+            console.log(`Update customer token amount = ${updateToken}`);
+            expect(tokenIncrease).to.equal(expectedToken);
+        });
     });
 });
