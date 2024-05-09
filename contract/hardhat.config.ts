@@ -4,14 +4,12 @@ import "@nomicfoundation/hardhat-verify";
 
 const fs = require("fs");
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
-const ETHERSCAN_API_KEY = fs.readFileSync(".etherscan").toString().trim();
-const mnemonic = fs.readFileSync(".secret").toString().trim();
-const infuraProjectID = fs.readFileSync(".infura").toString().trim();
+const ETHERSCAN_API_KEY = fs.readFileSync(".etherscan").toString().trim() || "";
 
 const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
-    
+
   },
   etherscan: {
     apiKey: ETHERSCAN_API_KEY,
