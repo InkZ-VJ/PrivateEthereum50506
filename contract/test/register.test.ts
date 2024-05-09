@@ -40,6 +40,7 @@ describe("REGISTER TESTS", function () {
         await energyTrading
             .connect(owner)
             .registerCustomer(await customer.getAddress(), "customer");
+
         expect(
             await energyTrading.register(await customer.getAddress())
         ).to.equal(true);

@@ -40,9 +40,7 @@ describe("BUYTOKEN TESTS", function () {
     });
 
     describe("REGISTERED CUSTOMER", function () {
-        // Calculate amount of tokens to purchase
-        const expectedToken = etherAmount / BigInt(ratePerUnit * 1e9);
-        console.log(`Expected Token Received: ${expectedToken}`);
+        // console.log(`Expected Token Received: ${expectedToken}`);
 
         this.beforeEach(async function () {
             // Register customer
@@ -65,6 +63,13 @@ describe("BUYTOKEN TESTS", function () {
             }
         });
 
+        // it("Insufficient Ether Sent", async function(){
+        //     const minusValue = ethers.parseUnits("-100", "gwei").valueOf();
+        //     const buyTokenTx = await energyTrading.connect(customer_regis).BuyToken({value: minusValue})
+        //
+        //     await expect(buyTokenTx).to.be.revertedWith("Insufficient Ether sent");
+        // })
+
         it("Buytoken Success", async function () {
             const goodAmount = ethers.parseUnits("100", "gwei").valueOf();
             const beforeToken = await energyTrading.balanceOf(customer_regis);
@@ -74,11 +79,11 @@ describe("BUYTOKEN TESTS", function () {
                 .BuyToken({ value: goodAmount });
 
             const updateToken = await energyTrading.balanceOf(customer_regis);
-            const tokenIncrease =  updateToken.valueOf() - beforeToken.valueOf();
+            const tokenIncrease = updateToken.valueOf() - beforeToken.valueOf();
             const expectedToken =
                 goodAmount / ethers.toBigInt(ratePerUnit * 1e9);
 
-            console.log(`Update customer token amount = ${updateToken}`);
+            // console.log(`Update customer token amount = ${updateToken}`);
             expect(tokenIncrease).to.equal(expectedToken);
         });
     });
