@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { EnergyTrading, EnergyTrading__factory } from "../typechain-types";
 import { Signer } from "ethers";
 
-describe("SETPRICE TESTS", function () {
+describe("PAYBILLS TESTS", function () {
     // smart contract
     let energyTrading: EnergyTrading;
     let energyTradingFactory: EnergyTrading__factory;
@@ -108,6 +108,45 @@ describe("SETPRICE TESTS", function () {
             const updateToken = await energyTrading.balanceOf(customer_debt);
             const tokenIncrease = updateToken.valueOf() - beforeToken.valueOf();
             expect(tokenIncrease).to.equal(expectedToken);
+        });
+
+        it("It's not the time to pay the bills", async function () {
+            const payBillsTx = energyTrading
+                .connect(customer_non_debt)
+                .payBills(customer_non_debt);
+
+            await expect(payBillsTx).to.revertedWith(
+                "It's not the time to pay the bills"
+            );
+        });
+
+        it("customer not have enough token", async function () {
+            const payBillsTx = energyTrading
+                .connect(customer_debt)
+                .payBills(customer_debt);
+            await expect(payBillsTx).to.revertedWith(
+                "Customer Dont Have Enough Token"
+            );
+        });
+
+        it("Happy case", async function () {
+            // Buy more token
+            await energyTrading
+                .connect(customer_debt)
+                .BuyToken({ value: amountCoin });
+
+
+            // pay bills
+            const beforeToken = await energyTrading.balanceOf(customer_debt);
+
+            await energyTrading.connect(customer_debt).payBills(customer_debt);
+
+            const updateToken = await energyTrading.balanceOf(customer_debt);
+            const tokenDecrease = beforeToken.valueOf() - updateToken.valueOf();
+
+            expect(tokenDecrease).to.equal(price);
+            expect(await energyTrading.yourCost(customer_debt)).to.equal(0);
+            expect(await energyTrading.status(customer_debt)).to.be.true;
         });
     });
 });
